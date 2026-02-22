@@ -11,71 +11,83 @@ const ChakraInfoPanel = ({ chakra }: ChakraInfoPanelProps) => {
       {chakra && (
         <motion.div
           key={chakra.id}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 w-[90%] max-w-lg z-20"
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 20 }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
+          className="absolute bottom-6 left-1/2 -translate-x-1/2 w-[92%] max-w-md z-20"
+          initial={{ opacity: 0, y: 30, scaleX: 0.8 }}
+          animate={{ opacity: 1, y: 0, scaleX: 1 }}
+          exit={{ opacity: 0, y: 15, scaleX: 0.9 }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
         >
           <div
-            className="relative p-6 border"
+            className="relative p-5"
             style={{
-              borderColor: `${chakra.color}40`,
-              backgroundColor: `${chakra.color}0F`,
-              backdropFilter: "blur(8px)",
+              borderLeft: `2px solid ${chakra.color}`,
+              borderRight: `2px solid ${chakra.color}20`,
+              backgroundColor: `${chakra.color}08`,
+              backdropFilter: "blur(12px)",
             }}
           >
-            {/* Corner accents */}
-            <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2" style={{ borderColor: chakra.color }} />
-            <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2" style={{ borderColor: chakra.color }} />
-            <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2" style={{ borderColor: chakra.color }} />
-            <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2" style={{ borderColor: chakra.color }} />
+            {/* Scan line */}
+            <motion.div
+              className="absolute top-0 left-0 w-full h-[1px]"
+              style={{ backgroundColor: chakra.color, transformOrigin: "left" }}
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+            />
 
-            {/* Sanskrit name */}
+            {/* Code name */}
             <motion.h2
-              className="font-display text-2xl md:text-3xl font-bold tracking-wider mb-1"
-              style={{ color: chakra.color }}
-              initial={{ opacity: 0, x: -20 }}
+              className="font-display text-lg md:text-xl font-bold tracking-[0.3em] uppercase mb-0.5"
+              style={{
+                color: chakra.color,
+                textShadow: `0 0 12px ${chakra.color}60`,
+              }}
+              initial={{ opacity: 0, x: -15 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.1 }}
             >
-              {chakra.sanskrit}
+              {chakra.codeName}
             </motion.h2>
 
-            {/* English name + location */}
-            <div className="flex items-center gap-3 mb-4">
-              <span className="font-body text-sm tracking-widest uppercase text-foreground/70">
-                {chakra.name} Chakra
+            {/* Sanskrit + location */}
+            <div className="flex items-center gap-3 mb-3">
+              <span className="font-body text-xs tracking-[0.2em] uppercase text-foreground/40">
+                {chakra.sanskrit}
               </span>
-              <span className="w-1 h-1 rounded-full" style={{ backgroundColor: chakra.color }} />
-              <span className="font-body text-sm text-foreground/50">{chakra.location}</span>
+              <span className="w-[3px] h-[3px]" style={{ backgroundColor: chakra.color }} />
+              <span className="font-body text-xs text-foreground/30">{chakra.location}</span>
             </div>
 
             {/* Divider */}
-            <div className="h-px w-full mb-4" style={{ background: `linear-gradient(90deg, transparent, ${chakra.color}60, transparent)` }} />
+            <div
+              className="h-px w-full mb-3"
+              style={{
+                background: `linear-gradient(90deg, ${chakra.color}60, ${chakra.color}10, transparent)`,
+              }}
+            />
 
             {/* Description */}
-            <p className="font-body text-base leading-relaxed text-foreground/80 mb-4">
+            <p className="font-body text-sm leading-relaxed text-foreground/70 mb-3">
               {chakra.description}
             </p>
 
-            {/* Meta row */}
-            <div className="flex items-center justify-between font-display text-xs tracking-widest uppercase">
-              <span className="text-foreground/50">
-                Element: <span style={{ color: chakra.color }}>{chakra.element}</span>
+            {/* Meta */}
+            <div className="flex items-center justify-between font-display text-[10px] tracking-[0.3em] uppercase">
+              <span className="text-foreground/30">
+                TYPE: <span style={{ color: chakra.color }}>{chakra.element}</span>
               </span>
-              <span className="text-foreground/50">
-                Mantra: <span style={{ color: chakra.color }}>{chakra.mantra}</span>
+              <span className="text-foreground/30">
+                FREQ: <span style={{ color: chakra.color }}>{chakra.mantra}</span>
               </span>
             </div>
 
-            {/* Animated line */}
+            {/* Bottom accent */}
             <motion.div
-              className="absolute bottom-0 left-0 h-[2px]"
+              className="absolute bottom-0 left-0 h-[1px]"
               style={{ backgroundColor: chakra.color }}
               initial={{ width: 0 }}
-              animate={{ width: "100%" }}
-              transition={{ duration: 0.8, delay: 0.2 }}
+              animate={{ width: "60%" }}
+              transition={{ duration: 0.6, delay: 0.15 }}
             />
           </div>
         </motion.div>
